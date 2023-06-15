@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $countries = \App\Models\Country::all();
     return view('dashboard')->with('countries', $countries);
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['country-restriction', 'auth'])->name('dashboard');
 
 Route::get('/countries/{country}/edit', [\App\Http\Controllers\CountryController::class, 'edit'])->middleware(['auth'])->name('countries.edit');
 Route::post('/countries', [\App\Http\Controllers\CountryController::class, 'store'])->middleware(['auth'])->name('countries.store');
