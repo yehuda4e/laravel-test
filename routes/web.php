@@ -14,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    $countries = \App\Models\Country::all();
+    return view('dashboard')->with('countries', $countries);
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/countries/{country}/edit', [\App\Http\Controllers\CountryController::class, 'edit'])->middleware(['auth'])->name('countries.edit');
+Route::post('/countries', [\App\Http\Controllers\CountryController::class, 'store'])->middleware(['auth'])->name('countries.store');
+Route::put('/countries/{country}', [\App\Http\Controllers\CountryController::class, 'update'])->middleware(['auth'])->name('countries.update');
 
 require __DIR__.'/auth.php';
