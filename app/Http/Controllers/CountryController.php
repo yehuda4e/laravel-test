@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -13,7 +14,7 @@ class CountryController extends Controller
             'iso' => 'required|string',
         ]);
 
-        $country = new \App\Models\Country();
+        $country = new Country();
         $country->name = $request->name;
         $country->iso = $request->iso;
         $country->user_id = auth()->user()->id;
@@ -22,7 +23,7 @@ class CountryController extends Controller
         return redirect()->route('dashboard')->with('success', 'Country created successfully.');
     }
 
-    public function update(Request $request, \App\Models\Country $country)
+    public function update(Request $request, Country $country)
     {
         $request->validate([
             'name' => 'required|string',
@@ -36,7 +37,7 @@ class CountryController extends Controller
         return redirect()->route('dashboard')->with('success', 'Country updated successfully.');
     }
 
-    public function edit(\App\Models\Country $country)
+    public function edit(Country $country)
     {
         return view('countries.edit')->with('country', $country);
     }

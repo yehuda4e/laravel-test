@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Country;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $countries = \App\Models\Country::all();
+    $countries = Country::all();
     return view('dashboard')->with('countries', $countries);
 })->middleware(['country-restriction', 'auth'])->name('dashboard');
 
-Route::get('/countries/{country}/edit', [\App\Http\Controllers\CountryController::class, 'edit'])->middleware(['auth'])->name('countries.edit');
-Route::post('/countries', [\App\Http\Controllers\CountryController::class, 'store'])->middleware(['auth'])->name('countries.store');
-Route::put('/countries/{country}', [\App\Http\Controllers\CountryController::class, 'update'])->middleware(['auth'])->name('countries.update');
+Route::get('/countries/{country}/edit', [CountryController::class, 'edit'])->middleware(['auth'])->name('countries.edit');
+Route::post('/countries', [CountryController::class, 'store'])->middleware(['auth'])->name('countries.store');
+Route::put('/countries/{country}', [CountryController::class, 'update'])->middleware(['auth'])->name('countries.update');
 
 require __DIR__.'/auth.php';
