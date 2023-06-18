@@ -18,7 +18,7 @@ use App\Http\Controllers\CountryController;
 Route::get('/', function () {
     $countries = Country::all();
     return view('dashboard')->with('countries', $countries);
-})->middleware(['country-restriction', 'auth'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::get('/countries/{country}/edit', [CountryController::class, 'edit'])->middleware(['auth'])->name('countries.edit');
 Route::post('/countries', [CountryController::class, 'store'])->middleware(['auth'])->name('countries.store');
